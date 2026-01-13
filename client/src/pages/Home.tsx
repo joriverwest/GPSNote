@@ -47,10 +47,10 @@ export default function Home() {
           lng: position.coords.longitude,
         };
         setCurrentLocation(pos);
-        toast.success("システムオンライン: 現在地を取得しました");
+        toast.success("シスチE��オンライン: 現在地を取得しました");
       },
       () => {
-        toast.error("位置情報の取得に失敗しました");
+        toast.error("位置惁E��の取得に失敗しました");
       }
     );
   }, []);
@@ -120,12 +120,12 @@ export default function Home() {
       prefecture
     };
     setMarkedLocations(prev => [...prev, newLocation]);
-    toast.success("ターゲット座標を記録しました");
+    toast.success("ターゲチE��座標を記録しました");
   };
 
   const removeLocation = (id: string) => {
     setMarkedLocations(prev => prev.filter(loc => loc.id !== id));
-    toast.info("ターゲット座標を削除しました");
+    toast.info("ターゲチE��座標を削除しました");
   };
 
   const handleMapClick = async (lat: number, lng: number) => {
@@ -141,7 +141,7 @@ export default function Home() {
       prefecture
     };
     setMarkedLocations(prev => [...prev, newLocation]);
-    toast.success("指定座標をマークしました");
+    toast.success("持E��座標をマ�Eクしました");
   };
 
   const handleMarkerClick = (targetId: string) => {
@@ -174,14 +174,14 @@ export default function Home() {
         : loc
     ));
     
-    toast.success("ターゲット情報を更新しました");
+    toast.success("ターゲチE��惁E��を更新しました");
     setSelectedTargetId(null);
     setEditingTarget(null);
   };
 
   const exportData = (format: 'json' | 'csv') => {
     if (markedLocations.length === 0) {
-      toast.error("エクスポートするデータがありません");
+      toast.error("エクスポ�Eトするデータがありません");
       return;
     }
 
@@ -220,7 +220,7 @@ export default function Home() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success(`${format.toUpperCase()}形式でエクスポートしました`);
+    toast.success(`${format.toUpperCase()}形式でエクスポ�Eトしました`);
   };
 
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -295,9 +295,9 @@ export default function Home() {
             return [...prev, ...uniqueNew];
           });
           
-          toast.success(`${validLocations.length}件のターゲットをインポートしました`);
+          toast.success(`${validLocations.length}件のターゲチE��をインポ�Eトしました`);
         } else {
-          toast.error("有効なデータが見つかりませんでした");
+          toast.error("有効なチE�Eタが見つかりませんでした");
         }
       } catch (error) {
         console.error("Import error:", error);
@@ -320,11 +320,11 @@ export default function Home() {
         watchIdRef.current = null;
       }
       setIsTracking(false);
-      toast.info("追跡モード: 停止");
+      toast.info("追跡モーチE 停止");
     } else {
       // Start tracking
       if (!navigator.geolocation) {
-        toast.error("このブラウザは位置情報をサポートしていません");
+        toast.error("こ�Eブラウザは位置惁E��をサポ�EトしてぁE��せん");
         return;
       }
 
@@ -339,7 +339,7 @@ export default function Home() {
         },
         (error) => {
           console.error(error);
-          toast.error("位置情報の追跡中にエラーが発生しました");
+          toast.error("位置惁E��の追跡中にエラーが発生しました");
         },
         {
           enableHighAccuracy: true,
@@ -348,7 +348,7 @@ export default function Home() {
         }
       );
       setIsTracking(true);
-      toast.success("追跡モード: 起動中");
+      toast.success("追跡モーチE 起動中");
     }
   });
 
@@ -371,7 +371,7 @@ export default function Home() {
         <div className="glass-panel px-6 py-3 rounded-br-2xl border-l-4 border-l-neon-cyan pointer-events-auto flex items-center gap-4">
           <div>
             <h1 className="text-2xl font-display font-bold text-neon-cyan tracking-widest neon-text">
-              CYBER<span className="text-white">TRACK</span>
+              GPS<span className="text-white">Note</span>
             </h1>
             <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
               <div className={`w-2 h-2 rounded-full ${isTracking ? "bg-green-500 animate-pulse" : "bg-red-500"}`}></div>
@@ -449,7 +449,7 @@ export default function Home() {
         <Card className="glass-panel border-neon-pink/30 text-foreground overflow-hidden flex flex-col">
           <div className="p-3 border-b border-neon-pink/20 bg-neon-pink/5 flex justify-between items-center">
             <h3 className="font-display font-bold text-neon-pink flex items-center gap-2">
-              <MapPin className="w-4 h-4" /> TARGET DETAILS
+              <MapPin className="w-4 h-4" /> DETAILS
             </h3>
             <Button 
               variant="ghost" 
@@ -508,7 +508,7 @@ export default function Home() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="target-name" className="text-xs font-mono text-muted-foreground">TARGET NAME</Label>
+                  <Label htmlFor="target-name" className="text-xs font-mono text-muted-foreground">NAME</Label>
                   <Input 
                     id="target-name"
                     value={editingTarget.name}
@@ -543,7 +543,7 @@ export default function Home() {
         </Card>
       </div>
 
-      {/* Target List Panel */}
+      {/* LIST Panel */}
       <div 
         className={`absolute top-24 left-4 z-20 w-80 transition-transform duration-300 ease-in-out ${
           isListOpen ? "translate-x-0" : "-translate-x-[120%]"
@@ -552,7 +552,7 @@ export default function Home() {
         <Card className="glass-panel border-neon-cyan/30 text-foreground overflow-hidden flex flex-col max-h-[calc(100vh-150px)]">
           <div className="p-3 border-b border-neon-cyan/20 bg-neon-cyan/5 flex justify-between items-center">
             <h3 className="font-display font-bold text-neon-cyan flex items-center gap-2">
-              <Crosshair className="w-4 h-4" /> TARGET LIST
+              <Crosshair className="w-4 h-4" /> LIST
             </h3>
             <div className="flex items-center gap-2">
               {/* Filter Controls */}
@@ -594,7 +594,7 @@ export default function Home() {
                         <FileJson className="w-3 h-3" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>JSONエクスポート</p></TooltipContent>
+                    <TooltipContent><p>JSONエクスポ�EチE/p></TooltipContent>
                   </Tooltip>
                   
                   <Tooltip>
@@ -608,7 +608,7 @@ export default function Home() {
                         <FileSpreadsheet className="w-3 h-3" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>CSVエクスポート</p></TooltipContent>
+                    <TooltipContent><p>CSVエクスポ�EチE/p></TooltipContent>
                   </Tooltip>
 
                   <Tooltip>
@@ -622,7 +622,7 @@ export default function Home() {
                         <Upload className="w-3 h-3" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>インポート (JSON/CSV)</p></TooltipContent>
+                    <TooltipContent><p>インポ�EチE(JSON/CSV)</p></TooltipContent>
                   </Tooltip>
                   <input 
                     type="file" 
@@ -642,7 +642,7 @@ export default function Home() {
           <div className="flex-1 overflow-y-auto p-2 space-y-2 custom-scrollbar">
             {filteredLocations.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground text-sm font-mono">
-                NO TARGETS FOUND
+                NO DATA FOUND
               </div>
             ) : (
               filteredLocations.map((loc, index) => (
@@ -656,7 +656,7 @@ export default function Home() {
                       onDoubleClick={() => {
                         setCurrentLocation({ lat: loc.lat, lng: loc.lng });
                         handleMarkerClick(loc.id);
-                        toast.info(`ターゲットへ移動: ${loc.name || "Unknown Location"}`);
+                        toast.info(`ターゲチE��へ移勁E ${loc.name || "Unknown Location"}`);
                       }}
                     >
                   <div className="flex justify-between items-start mb-1">
@@ -666,7 +666,7 @@ export default function Home() {
                         (loc.rank || 1) === 2 ? "text-[#ffaa00]" :
                         (loc.rank || 1) === 3 ? "text-[#00ff00]" :
                         "text-[#0088ff]"
-                      }`}>TARGET {index + 1}</span>
+                      }`}>{index + 1}</span>
                       <span className="text-[10px] font-mono text-muted-foreground bg-white/5 px-1 rounded">
                         {loc.prefecture || "Unknown"}
                       </span>
@@ -765,7 +765,7 @@ export default function Home() {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>地図モード切替</p>
+                  <p>地図モード�E替</p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -786,7 +786,7 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>ターゲット名表示切替</p>
+                <p>ターゲチE��名表示刁E��</p>
               </TooltipContent>
             </Tooltip>
 
@@ -802,7 +802,7 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>現在地をターゲットに追加</p>
+                <p>現在地をターゲチE��に追加</p>
               </TooltipContent>
             </Tooltip>
             
@@ -835,7 +835,7 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>現在地へ移動</p>
+                <p>現在地へ移勁E/p>
               </TooltipContent>
             </Tooltip>
 
@@ -855,7 +855,7 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>移動履歴の表示切替</p>
+                <p>移動履歴の表示刁E��</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
