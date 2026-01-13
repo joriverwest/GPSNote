@@ -1,0 +1,342 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Share Tech Mono", monospace;
+  --font-display: "Orbitron", sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  --color-neon-cyan: #00FFFF;
+  --color-neon-pink: #FF00FF;
+  --color-neon-green: #CCFF00;
+  
+  --animate-pulse-fast: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+:root {
+  /* Cyberpunk Dark Theme Default */
+  --primary: #00FFFF;
+  --primary-foreground: #000000;
+  
+  --background: #050505;
+  --foreground: #E0E0E0;
+  
+  --card: #0A0A0A;
+  --card-foreground: #E0E0E0;
+  
+  --popover: #0A0A0A;
+  --popover-foreground: #E0E0E0;
+  
+  --secondary: #1A1A1A;
+  --secondary-foreground: #00FFFF;
+  
+  --muted: #1A1A1A;
+  --muted-foreground: #808080;
+  
+  --accent: #1A1A1A;
+  --accent-foreground: #00FFFF;
+  
+  --destructive: #FF0055;
+  --destructive-foreground: #FFFFFF;
+  
+  --border: #333333;
+  --input: #1A1A1A;
+  --ring: #00FFFF;
+  
+  --radius: 0.25rem;
+}
+
+.dark {
+  /* Same as root since we are forcing dark mode aesthetic */
+  --primary: #00FFFF;
+  --primary-foreground: #000000;
+  --background: #050505;
+  --foreground: #E0E0E0;
+  --card: #0A0A0A;
+  --card-foreground: #E0E0E0;
+  --popover: #0A0A0A;
+  --popover-foreground: #E0E0E0;
+  --secondary: #1A1A1A;
+  --secondary-foreground: #00FFFF;
+  --muted: #1A1A1A;
+  --muted-foreground: #808080;
+  --accent: #1A1A1A;
+  --accent-foreground: #00FFFF;
+  --destructive: #FF0055;
+  --destructive-foreground: #FFFFFF;
+  --border: #333333;
+  --input: #1A1A1A;
+  --ring: #00FFFF;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    background-image: 
+      linear-gradient(rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.9)),
+      url('/images/cyberpunk-map-bg.png');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-wider;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .glass-panel {
+    @apply bg-black/60 backdrop-blur-md border border-neon-cyan/30 shadow-[0_0_15px_rgba(0,255,255,0.1)];
+  }
+  
+  .neon-text {
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.7), 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+  
+  .neon-border {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.5), inset 0 0 5px rgba(0, 255, 255, 0.2);
+  }
+
+  /* Custom Scrollbar for Cyberpunk Theme */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 255, 0.6);
+  }
+}
+
+/* Leaflet Custom Styles */
+.custom-pulsing-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulsing-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #00ffff;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.pulsing-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #00ffff;
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+  }
+  100% {
+    width: 300%;
+    height: 300%;
+    opacity: 0;
+  }
+}
+
+.custom-neon-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.neon-pin {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 15px solid #ff00ff;
+  position: relative;
+  filter: drop-shadow(0 0 5px #ff00ff);
+}
+
+.neon-pin::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  background: #ff00ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ff00ff;
+}
+
+.cyber-popup .leaflet-popup-content-wrapper {
+  background: rgba(5, 5, 5, 0.9);
+  border: 1px solid #00ffff;
+  border-radius: 4px;
+  color: #00ffff;
+  font-family: 'Share Tech Mono', monospace;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.cyber-popup .leaflet-popup-tip {
+  background: rgba(5, 5, 5, 0.9);
+  border: 1px solid #00ffff;
+}
+
+.leaflet-container {
+  background: #000 !important;
+}
+
+/* Rank-based Neon Markers */
+.neon-pin-red {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 15px solid #ff0055;
+  position: relative;
+  filter: drop-shadow(0 0 5px #ff0055);
+}
+
+.neon-pin-red::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  background: #ff0055;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ff0055;
+}
+
+.neon-pin-orange {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 15px solid #ffaa00;
+  position: relative;
+  filter: drop-shadow(0 0 5px #ffaa00);
+}
+
+.neon-pin-orange::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  background: #ffaa00;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffaa00;
+}
+
+.neon-pin-green {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 15px solid #00ff00;
+  position: relative;
+  filter: drop-shadow(0 0 5px #00ff00);
+}
+
+.neon-pin-green::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  background: #00ff00;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+.neon-pin-blue {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 15px solid #0088ff;
+  position: relative;
+  filter: drop-shadow(0 0 5px #0088ff);
+}
+
+.neon-pin-blue::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  background: #0088ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #0088ff;
+}
+
+.cyber-tooltip {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid #00ffff;
+  color: #00ffff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.cyber-tooltip::before {
+  border-top-color: #00ffff;
+}
