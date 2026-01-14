@@ -47,10 +47,10 @@ export default function Home() {
           lng: position.coords.longitude,
         };
         setCurrentLocation(pos);
-        toast.success("シスチE��オンライン: 現在地を取得しました");
+        toast.success("システムオンライン: 現在地を取得しました");
       },
       () => {
-        toast.error("位置惁E��の取得に失敗しました");
+        toast.error("位置情報の取得に失敗しました");
       }
     );
   }, []);
@@ -120,12 +120,12 @@ export default function Home() {
       prefecture
     };
     setMarkedLocations(prev => [...prev, newLocation]);
-    toast.success("ターゲチE��座標を記録しました");
+    toast.success("ターゲット座標を記録しました");
   };
 
   const removeLocation = (id: string) => {
     setMarkedLocations(prev => prev.filter(loc => loc.id !== id));
-    toast.info("ターゲチE��座標を削除しました");
+    toast.info("ターゲット座標を削除しました");
   };
 
   const handleMapClick = async (lat: number, lng: number) => {
@@ -141,7 +141,7 @@ export default function Home() {
       prefecture
     };
     setMarkedLocations(prev => [...prev, newLocation]);
-    toast.success("持E��座標をマ�Eクしました");
+    toast.success("指定座標をマークしました");
   };
 
   const handleMarkerClick = (targetId: string) => {
@@ -174,14 +174,14 @@ export default function Home() {
         : loc
     ));
     
-    toast.success("ターゲチE��惁E��を更新しました");
+    toast.success("ターゲット情報を更新しました");
     setSelectedTargetId(null);
     setEditingTarget(null);
   };
 
   const exportData = (format: 'json' | 'csv') => {
     if (markedLocations.length === 0) {
-      toast.error("エクスポ�Eトするデータがありません");
+      toast.error("エクスポートするデータがありません");
       return;
     }
 
@@ -220,7 +220,7 @@ export default function Home() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success(`${format.toUpperCase()}形式でエクスポ�Eトしました`);
+    toast.success(`${format.toUpperCase()}形式でエクスポートしました`);
   };
 
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -295,9 +295,9 @@ export default function Home() {
             return [...prev, ...uniqueNew];
           });
           
-          toast.success(`${validLocations.length}件のターゲチE��をインポ�Eトしました`);
+          toast.success(`${validLocations.length}件のターゲットをインポートしました`);
         } else {
-          toast.error("有効なチE�Eタが見つかりませんでした");
+          toast.error("有効なデータが見つかりませんでした");
         }
       } catch (error) {
         console.error("Import error:", error);
@@ -320,11 +320,11 @@ export default function Home() {
         watchIdRef.current = null;
       }
       setIsTracking(false);
-      toast.info("追跡モーチE 停止");
+      toast.info("追跡モード: 停止");
     } else {
       // Start tracking
       if (!navigator.geolocation) {
-        toast.error("こ�Eブラウザは位置惁E��をサポ�EトしてぁE��せん");
+        toast.error("このブラウザは位置情報をサポートしていません");
         return;
       }
 
@@ -339,7 +339,7 @@ export default function Home() {
         },
         (error) => {
           console.error(error);
-          toast.error("位置惁E��の追跡中にエラーが発生しました");
+          toast.error("位置情報の追跡中にエラーが発生しました");
         },
         {
           enableHighAccuracy: true,
@@ -348,7 +348,7 @@ export default function Home() {
         }
       );
       setIsTracking(true);
-      toast.success("追跡モーチE 起動中");
+      toast.success("追跡モード: 起動中");
     }
   });
 
@@ -543,7 +543,7 @@ export default function Home() {
         </Card>
       </div>
 
-      {/* LIST Panel */}
+      {/* Target List Panel */}
       <div 
         className={`absolute top-24 left-4 z-20 w-80 transition-transform duration-300 ease-in-out ${
           isListOpen ? "translate-x-0" : "-translate-x-[120%]"
@@ -594,7 +594,7 @@ export default function Home() {
                         <FileJson className="w-3 h-3" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>JSONエクスポ�EチE/p></TooltipContent>
+                    <TooltipContent><p>JSONエクスポート</p></TooltipContent>
                   </Tooltip>
                   
                   <Tooltip>
@@ -608,7 +608,7 @@ export default function Home() {
                         <FileSpreadsheet className="w-3 h-3" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>CSVエクスポ�EチE/p></TooltipContent>
+                    <TooltipContent><p>CSVエクスポート</p></TooltipContent>
                   </Tooltip>
 
                   <Tooltip>
@@ -622,7 +622,7 @@ export default function Home() {
                         <Upload className="w-3 h-3" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>インポ�EチE(JSON/CSV)</p></TooltipContent>
+                    <TooltipContent><p>インポート (JSON/CSV)</p></TooltipContent>
                   </Tooltip>
                   <input 
                     type="file" 
@@ -656,7 +656,7 @@ export default function Home() {
                       onDoubleClick={() => {
                         setCurrentLocation({ lat: loc.lat, lng: loc.lng });
                         handleMarkerClick(loc.id);
-                        toast.info(`ターゲチE��へ移勁E ${loc.name || "Unknown Location"}`);
+                        toast.info(`ターゲットへ移動: ${loc.name || "Unknown Location"}`);
                       }}
                     >
                   <div className="flex justify-between items-start mb-1">
@@ -765,7 +765,7 @@ export default function Home() {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>地図モード�E替</p>
+                  <p>地図モード切替</p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -786,7 +786,7 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>ターゲチE��名表示刁E��</p>
+                <p>ターゲット名表示切替</p>
               </TooltipContent>
             </Tooltip>
 
@@ -802,7 +802,7 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>現在地をターゲチE��に追加</p>
+                <p>現在地をターゲットに追加</p>
               </TooltipContent>
             </Tooltip>
             
@@ -835,7 +835,7 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>現在地へ移勁E/p>
+                <p>現在地へ移動</p>
               </TooltipContent>
             </Tooltip>
 
@@ -855,7 +855,7 @@ export default function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>移動履歴の表示刁E��</p>
+                <p>移動履歴の表示切替</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
