@@ -145,15 +145,6 @@ export default function LeafletMap({
             }
           }}
         >
-          {marker.title && (
-            <Popup 
-              className="cyber-popup" 
-              autoClose={!marker.showLabel} 
-              closeOnClick={!marker.showLabel}
-            >
-              {marker.title}
-            </Popup>
-          )}
           {(marker.showLabel || marker.id === selectedMarkerId) && marker.title && (
             <Tooltip direction="top" offset={[0, -30]} opacity={1} permanent className="cyber-tooltip">
               {marker.title}
