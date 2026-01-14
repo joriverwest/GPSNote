@@ -551,14 +551,16 @@ export default function Home() {
         }`}
       >
         <Card className="glass-panel border-neon-cyan/30 text-foreground overflow-hidden flex flex-col max-h-[calc(100vh-150px)]">
-          <div className="p-3 border-b border-neon-cyan/20 bg-neon-cyan/5 flex justify-between items-center">
-            <h3 className="font-display font-bold text-neon-cyan flex items-center gap-2">
+          <div className="p-3 border-b border-neon-cyan/20 bg-neon-cyan/5">
+            {/* 1行目: タイトル */}
+            <h3 className="font-display font-bold text-neon-cyan flex items-center gap-2 mb-2">
               <Crosshair className="w-4 h-4" /> LIST
             </h3>
-            <div className="flex items-center gap-2">
+            {/* 2行目: フィルター・インポート・エクスポート */}
+            <div className="flex items-center justify-between gap-2">
               {/* Filter Controls */}
-              <div className="flex gap-1 mr-2">
-                <select 
+              <div className="flex gap-1">
+                <select
                   className="bg-black/40 border border-neon-cyan/30 text-neon-cyan text-[10px] rounded h-6 px-1 focus:outline-none focus:border-neon-cyan"
                   value={filterRank || ""}
                   onChange={(e) => setFilterRank(e.target.value ? parseInt(e.target.value) : null)}
@@ -569,8 +571,8 @@ export default function Home() {
                   <option value="3">RANK 3 (GRN)</option>
                   <option value="4">RANK 4 (BLU)</option>
                 </select>
-                
-                <select 
+
+                <select
                   className="bg-black/40 border border-neon-cyan/30 text-neon-cyan text-[10px] rounded h-6 px-1 focus:outline-none focus:border-neon-cyan max-w-[80px]"
                   value={filterPrefecture || ""}
                   onChange={(e) => setFilterPrefecture(e.target.value || null)}
@@ -582,7 +584,7 @@ export default function Home() {
                 </select>
               </div>
 
-              <div className="flex gap-1">
+              <div className="flex items-center gap-1">
                 <TooltipProvider>
                   {/* Import Button */}
                   <Tooltip>
@@ -645,10 +647,10 @@ export default function Home() {
                     )}
                   </div>
                 </TooltipProvider>
+                <span className="text-xs font-mono bg-neon-cyan/20 px-2 py-0.5 rounded text-neon-cyan">
+                  {filteredLocations.length}
+                </span>
               </div>
-              <span className="text-xs font-mono bg-neon-cyan/20 px-2 py-0.5 rounded text-neon-cyan">
-                {filteredLocations.length}
-              </span>
             </div>
           </div>
           
@@ -711,7 +713,7 @@ export default function Home() {
       </div>
 
       {/* Bottom Controls */}
-      <footer className="absolute bottom-8 left-0 right-0 z-10 px-8 flex justify-between items-end pointer-events-none">
+      <footer className="absolute bottom-8 left-0 right-0 z-10 px-8 flex justify-end items-end pointer-events-none">
         {/* Action Buttons */}
         <div className="flex items-center gap-4 pointer-events-auto">
           <TooltipProvider>
