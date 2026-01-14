@@ -49,6 +49,7 @@ interface LeafletMapProps {
   onMapClick?: (lat: number, lng: number) => void;
   onMarkerClick?: (id: string) => void;
   mapStyle?: "dark" | "satellite" | "standard";
+  selectedMarkerId?: string | null;
 }
 
 // Component to handle map updates
@@ -86,6 +87,7 @@ export default function LeafletMap({
   onMapClick,
   onMarkerClick,
   mapStyle = "dark",
+  selectedMarkerId = null,
 }: LeafletMapProps) {
   
   // Define tile layers
@@ -152,7 +154,7 @@ export default function LeafletMap({
               {marker.title}
             </Popup>
           )}
-          {marker.showLabel && marker.title && (
+          {(marker.showLabel || marker.id === selectedMarkerId) && marker.title && (
             <Tooltip direction="top" offset={[0, -30]} opacity={1} permanent className="cyber-tooltip">
               {marker.title}
             </Tooltip>

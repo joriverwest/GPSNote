@@ -423,7 +423,7 @@ export default function Home() {
 
       {/* Main Map Area */}
       <main className="absolute inset-0 z-0">
-        <LeafletMap 
+        <LeafletMap
           center={currentLocation}
           zoom={15}
           markers={filteredLocations.map(loc => ({
@@ -438,6 +438,7 @@ export default function Home() {
           onMapClick={handleMapClick}
           onMarkerClick={handleMarkerClick}
           mapStyle={mapStyle}
+          selectedMarkerId={selectedTargetId}
         />
       </main>
 
