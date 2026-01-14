@@ -35,6 +35,7 @@ export default function Home() {
   const [filterRank, setFilterRank] = useState<number | null>(null);
   const [filterPrefecture, setFilterPrefecture] = useState<string | null>(null);
   const [showTargetNames, setShowTargetNames] = useState(false);
+  const [isExportMenuOpen, setIsExportMenuOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const watchIdRef = useRef<number | null>(null);
 
@@ -583,54 +584,66 @@ export default function Home() {
 
               <div className="flex gap-1">
                 <TooltipProvider>
+                  {/* Import Button */}
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
-                        className="h-6 w-6 text-neon-cyan hover:text-white hover:bg-neon-cyan/20"
-                        onClick={() => exportData('json')}
-                      >
-                        <FileJson className="w-3 h-3" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent><p>JSONエクスポート</p></TooltipContent>
-                  </Tooltip>
-                  
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
-                        className="h-6 w-6 text-neon-cyan hover:text-white hover:bg-neon-cyan/20"
-                        onClick={() => exportData('csv')}
-                      >
-                        <FileSpreadsheet className="w-3 h-3" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent><p>CSVエクスポート</p></TooltipContent>
-                  </Tooltip>
-
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         className="h-6 w-6 text-neon-cyan hover:text-white hover:bg-neon-cyan/20"
                         onClick={() => fileInputRef.current?.click()}
                       >
                         <Upload className="w-3 h-3" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent><p>インポート (JSON/CSV)</p></TooltipContent>
+                    <TooltipContent><p>インポート</p></TooltipContent>
                   </Tooltip>
-                  <input 
-                    type="file" 
-                    ref={fileInputRef} 
-                    className="hidden" 
-                    accept=".json,.csv" 
-                    onChange={handleImport} 
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    className="hidden"
+                    accept=".json,.csv"
+                    onChange={handleImport}
                   />
+
+                  {/* Export Button with Dropdown */}
+                  <div className="relative">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-6 w-6 text-neon-cyan hover:text-white hover:bg-neon-cyan/20"
+                          onClick={() => setIsExportMenuOpen(!isExportMenuOpen)}
+                        >
+                          <Download className="w-3 h-3" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent><p>エクスポート</p></TooltipContent>
+                    </Tooltip>
+                    {isExportMenuOpen && (
+                      <div className="absolute top-full right-0 mt-1 w-24 glass-panel border border-neon-cyan/30 rounded overflow-hidden z-50">
+                        <button
+                          className="w-full px-3 py-2 text-xs font-mono text-left text-neon-cyan hover:bg-neon-cyan/20"
+                          onClick={() => {
+                            exportData('json');
+                            setIsExportMenuOpen(false);
+                          }}
+                        >
+                          JSON
+                        </button>
+                        <button
+                          className="w-full px-3 py-2 text-xs font-mono text-left text-neon-cyan hover:bg-neon-cyan/20 border-t border-neon-cyan/20"
+                          onClick={() => {
+                            exportData('csv');
+                            setIsExportMenuOpen(false);
+                          }}
+                        >
+                          CSV
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </TooltipProvider>
               </div>
               <span className="text-xs font-mono bg-neon-cyan/20 px-2 py-0.5 rounded text-neon-cyan">
