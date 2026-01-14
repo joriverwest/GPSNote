@@ -712,27 +712,6 @@ export default function Home() {
 
       {/* Bottom Controls */}
       <footer className="absolute bottom-8 left-0 right-0 z-10 px-8 flex justify-between items-end pointer-events-none">
-        {/* Status Panel */}
-        <div className="glass-panel p-4 rounded-tr-2xl border-l-4 border-l-neon-lime pointer-events-auto min-w-[200px]">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-xs font-bold text-neon-lime">STATUS</span>
-            <Zap className="w-3 h-3 text-neon-lime animate-pulse" />
-          </div>
-          <div className="space-y-1 font-mono text-xs">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">GPS SIGNAL</span>
-              <span className="text-white">STRONG</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">ACCURACY</span>
-              <span className="text-white">HIGH</span>
-            </div>
-          </div>
-          <div className="mt-3 h-1 w-full bg-white/10 rounded-full overflow-hidden">
-            <div className="h-full bg-neon-lime w-[85%] animate-pulse"></div>
-          </div>
-        </div>
-
         {/* Action Buttons */}
         <div className="flex items-center gap-4 pointer-events-auto">
           <TooltipProvider>
@@ -808,22 +787,6 @@ export default function Home() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="rounded-full w-12 h-12 bg-black/50 border-neon-pink/50 text-neon-pink/70 hover:bg-neon-pink/20 hover:border-neon-pink hover:text-neon-pink transition-all duration-300"
-                  onClick={addLocation}
-                >
-                  <Plus className="w-6 h-6" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>現在地をターゲットに追加</p>
-              </TooltipContent>
-            </Tooltip>
-            
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
                   className="rounded-full w-12 h-12 bg-black/50 border-neon-cyan/50 text-neon-cyan/70 hover:bg-neon-cyan/20 hover:border-neon-cyan hover:text-neon-cyan transition-all duration-300"
                   onClick={() => {
                     // Force a small update to trigger re-render if needed, but mainly just set state
@@ -851,42 +814,7 @@ export default function Home() {
                 <p>現在地へ移動</p>
               </TooltipContent>
             </Tooltip>
-
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className={`rounded-full w-12 h-12 border-neon-lime/50 transition-all duration-300 ${
-                    showHistory 
-                      ? "bg-neon-lime/20 border-neon-lime text-neon-lime shadow-[0_0_10px_rgba(191,255,0,0.3)]" 
-                      : "bg-black/50 text-neon-lime/70 hover:bg-neon-lime/20 hover:border-neon-lime hover:text-neon-lime"
-                  }`}
-                  onClick={() => setShowHistory(!showHistory)}
-                >
-                  <History className="w-5 h-5" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>移動履歴の表示切替</p>
-              </TooltipContent>
-            </Tooltip>
           </TooltipProvider>
-
-          <Button
-            className={`rounded-full px-6 h-12 font-bold tracking-wider transition-all duration-300 shadow-lg ${
-              isTracking 
-                ? "bg-red-500 hover:bg-red-600 text-white shadow-red-500/20 border border-red-400" 
-                : "bg-neon-cyan hover:bg-cyan-400 text-black shadow-neon-cyan/20 border border-cyan-300"
-            }`}
-            onClick={toggleTracking}
-          >
-            {isTracking ? (
-              <>STOP TRACKING</>
-            ) : (
-              <><Navigation className="w-4 h-4 mr-2" /> START TRACKING</>
-            )}
-          </Button>
         </div>
       </footer>
     </div>
